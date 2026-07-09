@@ -1,0 +1,88 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  username     String   @unique
+  password     String
+  targetWeight Float?
+  height       Float?
+  createdAt    DateTime @default(now())
+
+  weightRecords    WeightRecord[]
+  dietRecords      DietRecord[]
+  exerciseRecords  ExerciseRecord[]
+  dimensionRecords DimensionRecord[]
+}
+
+model WeightRecord {
+  id        String   @id @default(uuid())
+  userId    String
+  date      DateTime @default(now())
+  weight    Float
+  bodyFat   Float?
+  note      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  EXTRA
+}
+
+model DietRecord {
+  id        String   @id @default(uuid())
+  userId    String
+  date      DateTime @default(now())
+  mealType  MealType
+  foodName  String
+  calories  Int
+  note      String?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ExerciseType {
+  TAIJI
+  WALKING
+  BADUANJIN
+  OTHER
+}
+
+model ExerciseRecord {
+  id        String       @id @default(uuid())
+  userId    String
+  date      DateTime     @default(now())
+  type      ExerciseType
+  duration  Int
+  calories  Int?
+  note      String?
+  createdAt DateTime     @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model DimensionRecord {
+  id        String   @id @default(uuid())
+  userId    String
+  date      DateTime @default(now())
+  waist     Float?
+  hip       Float?
+  chest     Float?
+  arm       Float?
+  thigh     Float?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}

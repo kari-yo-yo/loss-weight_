@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0f0f14;
+  --foreground: #f2ede4;
+  --card-bg: #1a1a24;
+  --card-border: rgba(255, 255, 255, 0.05);
+  --accent: #bf3b3b;
+  --success: #4a7c59;
+  --warning: #a0522d;
+  --info: #2c5f7c;
+}
+
+[data-theme="light"] {
+  --background: #f2ede4;
+  --foreground: #0f0f14;
+  --card-bg: #ffffff;
+  --card-border: rgba(0, 0, 0, 0.05);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-noto-sans), sans-serif;
+}
+
+/* 水墨纹理叠加层 */
+.ink-texture::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* 卷轴导航样式 */
+.scroll-nav {
+  background: linear-gradient(180deg, rgba(15, 15, 20, 0.98) 0%, rgba(26, 26, 36, 0.95) 100%);
+  border-right: 1px solid rgba(201, 169, 110, 0.1);
+}
+
+/* 双层嵌套卡片 */
+.card-outer {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 0.375rem;
+}
+
+.card-inner {
+  background: var(--card-bg);
+  border-radius: calc(1rem - 0.375rem);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* 药丸按钮 */
+.btn-pill {
+  @apply px-6 py-3 rounded-full font-medium transition-all duration-300;
+  background: #bf3b3b;
+  color: #f2ede4;
+}
+
+.btn-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(191, 59, 59, 0.3);
+}
+
+.btn-pill:active {
+  transform: scale(0.98);
+}
+
+/* 毛笔运笔动画 */
+.brush-stroke {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawStroke 2s ease-out forwards;
+}
+
+@keyframes drawStroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* 印章动画 */
+.seal-stamp {
+  animation: stampDrop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes stampDrop {
+  0% {
+    transform: translateY(-100px) rotate(-10deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(5px) rotate(2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 169, 110, 0.4);
+}
