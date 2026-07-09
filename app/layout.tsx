@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { Sidebar } from '@/components/nav/Sidebar'
 import { AuthProvider } from '@/components/auth/AuthProvider'
@@ -8,6 +8,13 @@ export const metadata: Metadata = {
   description: '以太极、走路、八段锦等温和运动为核心的养生减肥追踪平台',
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -15,20 +22,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body
         className="ink-texture"
         style={{
-          ['--font-noto-sans' as string]: "'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif",
-          ['--font-noto-serif' as string]: "'Noto Serif SC', 'Songti SC', 'SimSun', serif",
-          ['--font-ma-shan-zheng' as string]: "'Ma Shan Zheng', 'KaiTi', cursive",
+          ['--font-noto-sans' as string]: "'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif",
+          ['--font-noto-serif' as string]: "'Songti SC', 'SimSun', 'Noto Serif SC', serif",
+          ['--font-ma-shan-zheng' as string]: "'KaiTi', 'STKaiti', 'Ma Shan Zheng', cursive",
         }}
       >
         <AuthProvider>
